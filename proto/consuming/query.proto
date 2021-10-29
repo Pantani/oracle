@@ -1,0 +1,36 @@
+syntax = "proto3";
+package cosmonaut.oracle.consuming;
+
+import "google/api/annotations.proto";
+import "cosmos/base/query/v1beta1/pagination.proto";
+import "consuming/coin_rates.proto";
+// this line is used by starport scaffolding # 1
+
+option go_package = "github.com/cosmonaut/oracle/x/consuming/types";
+
+// Query defines the gRPC querier service.
+service Query {
+    
+  	// CoinRatesResult defines a rpc handler method for MsgCoinRatesData.
+  	rpc CoinRatesResult(QueryCoinRatesRequest) returns (QueryCoinRatesResponse) {
+		option (google.api.http).get = "/oracle/consuming/coin_rates_result/{request_id}";
+  	}
+
+  	// LastCoinRatesId query the last CoinRates result id
+  	rpc LastCoinRatesId(QueryLastCoinRatesIdRequest) returns (QueryLastCoinRatesIdResponse) {
+		option (google.api.http).get = "/oracle/consuming/last_coin_rates_id";
+  	}
+// this line is used by starport scaffolding # 2
+}
+
+message QueryCoinRatesRequest {int64 request_id = 1;}
+
+message QueryCoinRatesResponse {
+  CoinRatesResult result = 1;
+}
+
+message QueryLastCoinRatesIdRequest {}
+
+message QueryLastCoinRatesIdResponse {int64 request_id = 1;}
+
+// this line is used by starport scaffolding # 3
